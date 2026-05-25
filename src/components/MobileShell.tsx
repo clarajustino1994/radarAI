@@ -184,7 +184,7 @@ export function SecondaryButton({
   backgroundColor?: string;
 }) {
   const cls =
-    `w-full py-4 ${backgroundColor || "bg-surface"} ring-1 ${borderColor || "ring-border"} text-foreground rounded-3xl font-medium text-base active:scale-[0.98] transition-transform`;
+    `w-full py-4 ${backgroundColor || "bg-surface"} ring-1 ${borderColor || "ring-border"} text-foreground rounded-3xl font-medium text-base flex items-center justify-center active:scale-[0.98] transition-transform`;
   if (as === "link" && to)
     return (
       <Link to={to} className={cls}>

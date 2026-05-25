@@ -107,8 +107,8 @@ function Results() {
           ))
         )}
         <div className="grid grid-cols-2 gap-2 pt-2">
-          <SecondaryButton as="link" to="/no-match" backgroundColor="ring-[oklch(0.74_0.12_50)]">Overlap?</SecondaryButton>
-          <SecondaryButton as="link" to="/conflict" backgroundColor="ring-[oklch(0.74_0.12_50)]">Conflict help</SecondaryButton>
+          <SecondaryButton as="link" to="/no-match" backgroundColor="bg-[oklch(0.74_0.12_50)]">Overlap?</SecondaryButton>
+          <SecondaryButton as="link" to="/conflict" backgroundColor="bg-[oklch(0.74_0.12_50)]">Conflict help</SecondaryButton>
         </div>
       </section>
 
@@ -126,9 +126,7 @@ function Results() {
       )}
 
       {decided && (
-        <>
-          <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"></div>
-          <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-[55] px-5">
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-[55] px-5">
             <div className="bg-foreground text-background rounded-3xl shadow-lift p-5 animate-slide-up overflow-hidden">
             <p className="font-mono text-[10px] uppercase tracking-widest text-background/60 mb-1">Voting ended</p>
             <h3 className="text-lg font-semibold tracking-tight mb-1">
@@ -153,8 +151,7 @@ function Results() {
             </div>
           </div>
         </div>
-      </>
-    )}
+      )}
 
       <ChatDrawer />
     </MobileShell>
