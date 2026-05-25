@@ -9,14 +9,14 @@ export const Route = createFileRoute("/prefs")({
 });
 
 const STEPS = [
-  { key: "mood", title: "Mood / Energy", flexKey: undefined, options: [
+  { key: "mood", title: "Mood / Energy", flexKey: "mood", options: [
     { v: "Relaxed", s: "😌 Quiet sun & breeze" },
     { v: "High energy", s: "⚡ Move & sweat" },
     { v: "Adventurous", s: "🌍 Hike & explore" },
     { v: "Social", s: "🤝 People & chatter" },
     { v: "Creative", s: "🎨 Inspiring spaces" },
   ] },
-  { key: "atmosphere", title: "Preferred atmosphere", flexKey: undefined, options: [
+  { key: "atmosphere", title: "Preferred atmosphere", flexKey: "atmosphere", options: [
     { v: "Lively", s: "Crowds & buzz" },
     { v: "Calm & secluded", s: "Few people" },
     { v: "Scenic", s: "Big views" },
@@ -172,8 +172,8 @@ function Review({ plan }: { plan: ReturnType<typeof usePlan>["plan"] }) {
       <h1 className="text-2xl font-semibold tracking-tight mb-1">Looks good?</h1>
       <p className="text-sm text-muted-foreground mb-5">Submit and see what Radar finds.</p>
       <div className="bg-surface ring-1 ring-border rounded-3xl p-5 space-y-3">
-        <Row label="Mood" v={plan.prefs.mood} />
-        <Row label="Atmosphere" v={plan.prefs.atmosphere} />
+        <Row label="Mood" v={plan.prefs.mood} extra={plan.prefs.flex.mood} />
+        <Row label="Atmosphere" v={plan.prefs.atmosphere} extra={plan.prefs.flex.atmosphere} />
         <Row label="Budget" v={plan.prefs.budget} extra={plan.prefs.flex.budget} />
         <Row label="Time" v={plan.prefs.timeWindow} extra={plan.prefs.flex.time} />
         <Row label="Environment" v={plan.prefs.io} extra={plan.prefs.flex.io} />

@@ -8,7 +8,7 @@ export type Prefs = {
   distance?: string;
   timeWindow?: string;
   io?: string;
-  flex: { budget: string; distance: string; io: string; time: string };
+  flex: { mood: string; atmosphere: string; budget: string; distance: string; io: string; time: string };
 };
 
 export type Votes = Record<string, { up: number; down: number; mine?: "up" | "down" }>;
@@ -51,7 +51,7 @@ const initial: Plan = {
   name: "",
   location: "El Born, Barcelona",
   initialDistance: "1–5 km",
-  prefs: { flex: { budget: "Flexible", distance: "Flexible", io: "Flexible", time: "Flexible" } },
+  prefs: { flex: { mood: "Flexible", atmosphere: "Flexible", budget: "Flexible", distance: "Flexible", io: "Flexible", time: "Flexible" } },
   votes: {
     bunkers: { up: 3, down: 0 },
     ciutadella: { up: 2, down: 1 },
