@@ -140,15 +140,17 @@ export function PrimaryButton({
   as,
   to,
   disabled,
+  color = "bg-foreground",
 }: {
   children: ReactNode;
   onClick?: () => void;
   as?: "link";
   to?: string;
   disabled?: boolean;
+  color?: string;
 }) {
   const cls =
-    "w-full py-4 bg-foreground text-background rounded-3xl font-medium text-base flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-40 disabled:pointer-events-none";
+    `w-full py-4 ${color} text-white rounded-3xl font-medium text-base flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-40 disabled:pointer-events-none`;
   if (as === "link" && to)
     return (
       <Link to={to} className={cls}>

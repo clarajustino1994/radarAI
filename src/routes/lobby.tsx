@@ -16,7 +16,7 @@ function Lobby() {
       <section className="px-6 pt-2">
         <h1 className="text-3xl font-semibold tracking-tight leading-tight mb-2">Lobby</h1>
         <p className="text-sm text-muted-foreground mb-6">
-          {doneCount}/{PARTICIPANTS.length} done · avg 20s to fill
+          {doneCount}/{PARTICIPANTS.length} done
         </p>
 
         <div className="bg-surface ring-1 ring-border rounded-3xl p-2 mb-6">

@@ -21,7 +21,7 @@ function Welcome() {
           Decide faster,<br />together.
         </h1>
         <p className="text-sm text-muted-foreground mb-10">
-          One place to plan with friends — no group-chat back-and-forth.
+          One place to plan with friends
         </p>
 
         <ol className="space-y-3 mb-10">
