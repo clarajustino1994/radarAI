@@ -57,8 +57,8 @@ export function BottomNav() {
     return loc.pathname === to || loc.pathname.startsWith(to + "/");
   };
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-40 px-4 pb-4 pt-2 bg-gradient-to-t from-background via-background/95 to-transparent">
-      <div className="bg-foreground text-background rounded-full px-2 py-2 flex items-center justify-around shadow-lift">
+    <nav className="fixed bottom-0 right-0 w-1/2 max-w-[220px] z-40 px-2 pb-2 pt-1 bg-transparent">
+      <div className="bg-foreground text-background rounded-full px-1 py-1 flex items-center justify-around shadow-lift">
         {tabs.map((t) => {
           const active = isActive(t.to);
           return (
