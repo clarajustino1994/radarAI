@@ -1,0 +1,290 @@
+{
+  "/Users/clara.limaco.pe/Master/HCI/RadarAI/src/styles.css": {
+    "file": "assets/styles-CgJ5KlIg.css",
+    "src": "/Users/clara.limaco.pe/Master/HCI/RadarAI/src/styles.css"
+  },
+  "_ActivityCard-D9YGaHWl.js": {
+    "file": "assets/ActivityCard-D9YGaHWl.js",
+    "name": "ActivityCard",
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js"
+    ]
+  },
+  "_MobileShell-c16SjN77.js": {
+    "file": "assets/MobileShell-c16SjN77.js",
+    "name": "MobileShell",
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js"
+    ]
+  },
+  "_router-CL_PJO0p.js": {
+    "file": "assets/router-CL_PJO0p.js",
+    "name": "router",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js"
+    ],
+    "dynamicImports": [
+      "src/routes/welcome.tsx?tsr-split=component",
+      "src/routes/summary.tsx?tsr-split=component",
+      "src/routes/results.tsx?tsr-split=component",
+      "src/routes/prefs.tsx?tsr-split=component",
+      "src/routes/no-match.tsx?tsr-split=component",
+      "src/routes/lobby.tsx?tsr-split=component",
+      "src/routes/join.tsx?tsr-split=component",
+      "src/routes/invite.tsx?tsr-split=component",
+      "src/routes/history.tsx?tsr-split=component",
+      "src/routes/go.tsx?tsr-split=component",
+      "src/routes/feedback.tsx?tsr-split=component",
+      "src/routes/create.tsx?tsr-split=component",
+      "src/routes/conflict.tsx?tsr-split=component",
+      "src/routes/compromise.tsx?tsr-split=component",
+      "src/routes/chat.tsx?tsr-split=component",
+      "src/routes/index.tsx?tsr-split=component",
+      "src/routes/activity.$id.tsx?tsr-split=component"
+    ],
+    "assets": [
+      "assets/styles-CgJ5KlIg.css"
+    ]
+  },
+  "_server-BMSOoJ6Y.js": {
+    "file": "assets/server-BMSOoJ6Y.js",
+    "name": "server",
+    "isDynamicEntry": true,
+    "dynamicImports": [
+      "tanstack-start-manifest:v",
+      "_router-CL_PJO0p.js",
+      "src/start.ts",
+      "node_modules/@tanstack/start-server-core/dist/esm/empty-plugin-adapters.js"
+    ]
+  },
+  "_worker-entry-Cy60GO_r.js": {
+    "file": "assets/worker-entry-Cy60GO_r.js",
+    "name": "worker-entry",
+    "dynamicImports": [
+      "_server-BMSOoJ6Y.js"
+    ]
+  },
+  "node_modules/@tanstack/start-server-core/dist/esm/empty-plugin-adapters.js": {
+    "file": "assets/empty-plugin-adapters-BFgPZ6_d.js",
+    "name": "empty-plugin-adapters",
+    "src": "node_modules/@tanstack/start-server-core/dist/esm/empty-plugin-adapters.js",
+    "isDynamicEntry": true
+  },
+  "src/routes/activity.$id.tsx?tsr-split=component": {
+    "file": "assets/activity._id-a-UIyG-j.js",
+    "name": "activity._id",
+    "src": "src/routes/activity.$id.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/chat.tsx?tsr-split=component": {
+    "file": "assets/chat-BJO-0eAa.js",
+    "name": "chat",
+    "src": "src/routes/chat.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_MobileShell-c16SjN77.js",
+      "_router-CL_PJO0p.js"
+    ]
+  },
+  "src/routes/compromise.tsx?tsr-split=component": {
+    "file": "assets/compromise-Cpfgs6gY.js",
+    "name": "compromise",
+    "src": "src/routes/compromise.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_MobileShell-c16SjN77.js",
+      "_ActivityCard-D9YGaHWl.js",
+      "_router-CL_PJO0p.js"
+    ]
+  },
+  "src/routes/conflict.tsx?tsr-split=component": {
+    "file": "assets/conflict-irOhadVB.js",
+    "name": "conflict",
+    "src": "src/routes/conflict.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/create.tsx?tsr-split=component": {
+    "file": "assets/create-Be4ph6mj.js",
+    "name": "create",
+    "src": "src/routes/create.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_MobileShell-c16SjN77.js",
+      "_router-CL_PJO0p.js"
+    ]
+  },
+  "src/routes/feedback.tsx?tsr-split=component": {
+    "file": "assets/feedback-Szxn3pAH.js",
+    "name": "feedback",
+    "src": "src/routes/feedback.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/go.tsx?tsr-split=component": {
+    "file": "assets/go-C2_Ga3w6.js",
+    "name": "go",
+    "src": "src/routes/go.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_MobileShell-c16SjN77.js",
+      "_router-CL_PJO0p.js"
+    ]
+  },
+  "src/routes/history.tsx?tsr-split=component": {
+    "file": "assets/history-d_MBoDDh.js",
+    "name": "history",
+    "src": "src/routes/history.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/index.tsx?tsr-split=component": {
+    "file": "assets/index-C_dELmBa.js",
+    "name": "index",
+    "src": "src/routes/index.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/invite.tsx?tsr-split=component": {
+    "file": "assets/invite-Ck47-koV.js",
+    "name": "invite",
+    "src": "src/routes/invite.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_MobileShell-c16SjN77.js",
+      "_router-CL_PJO0p.js"
+    ]
+  },
+  "src/routes/join.tsx?tsr-split=component": {
+    "file": "assets/join-BQGl1VA1.js",
+    "name": "join",
+    "src": "src/routes/join.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/lobby.tsx?tsr-split=component": {
+    "file": "assets/lobby-DN5NjpXP.js",
+    "name": "lobby",
+    "src": "src/routes/lobby.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_MobileShell-c16SjN77.js",
+      "_router-CL_PJO0p.js"
+    ]
+  },
+  "src/routes/no-match.tsx?tsr-split=component": {
+    "file": "assets/no-match-CSSWwQDm.js",
+    "name": "no-match",
+    "src": "src/routes/no-match.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/prefs.tsx?tsr-split=component": {
+    "file": "assets/prefs-BgQg9kQO.js",
+    "name": "prefs",
+    "src": "src/routes/prefs.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/results.tsx?tsr-split=component": {
+    "file": "assets/results-CmbRLJTe.js",
+    "name": "results",
+    "src": "src/routes/results.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js",
+      "_ActivityCard-D9YGaHWl.js"
+    ]
+  },
+  "src/routes/summary.tsx?tsr-split=component": {
+    "file": "assets/summary-Cyc8duhu.js",
+    "name": "summary",
+    "src": "src/routes/summary.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/routes/welcome.tsx?tsr-split=component": {
+    "file": "assets/welcome-DDcM7mok.js",
+    "name": "welcome",
+    "src": "src/routes/welcome.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_router-CL_PJO0p.js",
+      "_MobileShell-c16SjN77.js"
+    ]
+  },
+  "src/start.ts": {
+    "file": "assets/start-BnKSQwQp.js",
+    "name": "start",
+    "src": "src/start.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_server-BMSOoJ6Y.js",
+      "_worker-entry-Cy60GO_r.js"
+    ]
+  },
+  "tanstack-start-manifest:v": {
+    "file": "assets/_tanstack-start-manifest_v-DS_24fT_.js",
+    "name": "_tanstack-start-manifest_v",
+    "src": "tanstack-start-manifest:v",
+    "isDynamicEntry": true
+  },
+  "virtual:cloudflare/worker-entry": {
+    "file": "index.js",
+    "name": "index",
+    "src": "virtual:cloudflare/worker-entry",
+    "isEntry": true,
+    "imports": [
+      "_worker-entry-Cy60GO_r.js"
+    ]
+  }
+}
