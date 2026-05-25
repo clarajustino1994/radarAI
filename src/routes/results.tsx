@@ -15,7 +15,7 @@ function Results() {
   const { plan, confirm, rankedActivities } = usePlan();
   const nav = useNavigate();
   const [filter, setFilter] = useState<FilterKey>("all");
-  const [secs, setSecs] = useState(60);
+  const [secs, setSecs] = useState(30);
   const [decided, setDecided] = useState(false);
 
   useEffect(() => {
@@ -153,7 +153,7 @@ function Results() {
         </div>
       )}
 
-      <ChatDrawer />
+      {!decided && !majoritySubmitted && <ChatDrawer />}
     </MobileShell>
   );
 }
