@@ -1,4 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
+import fs from 'fs';
+import path from 'path';
 
 let serverHandler: any;
 
@@ -26,8 +28,47 @@ function getHost(req: VercelRequest): string {
   return host ? (Array.isArray(host) ? host[0] : host) : 'localhost';
 }
 
+function getMimeType(filePath: string): string {
+  const ext = path.extname(filePath);
+  const mimes: Record<string, string> = {
+    '.js': 'application/javascript',
+    '.css': 'text/css',
+    '.html': 'text/html',
+    '.json': 'application/json',
+    '.svg': 'image/svg+xml',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.gif': 'image/gif',
+    '.webp': 'image/webp',
+  };
+  return mimes[ext] || 'application/octet-stream';
+}
+
+function serveStatic(filePath: string, res: VercelResponse): boolean {
+  try {
+    if (fs.existsSync(filePath)) {
+      const content = fs.readFileSync(filePath);
+      res.setHeader('Content-Type', getMimeType(filePath));
+      res.setHeader('Cache-Control', 'public, immutable, max-age=31536000');
+      res.send(content);
+      return true;
+    }
+  } catch (err) {
+    console.error('Static file error:', err);
+  }
+  return false;
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
+    // Serve static assets
+    if (req.url?.startsWith('/assets/')) {
+      const filePath = path.join(__dirname, `../dist/client${req.url}`);
+      if (serveStatic(filePath, res)) return;
+    }
+
+    // SSR for everything else
     const handler = await getServerHandler();
 
     const protocol = getProtocol(req);
