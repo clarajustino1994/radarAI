@@ -47,12 +47,16 @@ function getMimeType(filePath: string): string {
 
 function serveStatic(filePath: string, res: VercelResponse): boolean {
   try {
+    console.log('Checking file:', filePath);
     if (fs.existsSync(filePath)) {
+      console.log('File found, serving:', filePath);
       const content = fs.readFileSync(filePath);
       res.setHeader('Content-Type', getMimeType(filePath));
       res.setHeader('Cache-Control', 'public, immutable, max-age=31536000');
       res.send(content);
       return true;
+    } else {
+      console.log('File not found:', filePath);
     }
   } catch (err) {
     console.error('Static file error:', err);
