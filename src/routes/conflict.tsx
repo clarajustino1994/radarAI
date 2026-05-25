@@ -29,11 +29,10 @@ function Conflict() {
         </ul>
       </section>
 
-      <div className="px-6 space-y-2">
+      <div className="px-6 space-y-3">
         <PrimaryButton as="link" to="/compromise">Show compromises</PrimaryButton>
         <SecondaryButton onClick={() => nav({ to: "/activity/$id", params: { id: "ciutadella" } })}>Choose random</SecondaryButton>
         <SecondaryButton as="link" to="/prefs">Retry preferences</SecondaryButton>
-        <SecondaryButton as="link" to="/chat">Open chat</SecondaryButton>
       </div>
     </MobileShell>
   );

@@ -141,6 +141,7 @@ export function PrimaryButton({
   to,
   disabled,
   color = "bg-foreground",
+  size = "normal",
 }: {
   children: ReactNode;
   onClick?: () => void;
@@ -148,9 +149,12 @@ export function PrimaryButton({
   to?: string;
   disabled?: boolean;
   color?: string;
+  size?: "normal" | "small";
 }) {
+  const padding = size === "small" ? "py-2" : "py-4";
+  const weight = size === "small" ? "font-normal text-sm" : "font-medium text-base";
   const cls =
-    `w-full py-4 ${color} text-white rounded-3xl font-medium text-base flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-40 disabled:pointer-events-none`;
+    `w-full ${padding} ${color} text-white rounded-3xl ${weight} flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-40 disabled:pointer-events-none`;
   if (as === "link" && to)
     return (
       <Link to={to} className={cls}>
@@ -169,14 +173,18 @@ export function SecondaryButton({
   onClick,
   as,
   to,
+  borderColor,
+  backgroundColor,
 }: {
   children: ReactNode;
   onClick?: () => void;
   as?: "link";
   to?: string;
+  borderColor?: string;
+  backgroundColor?: string;
 }) {
   const cls =
-    "w-full py-4 bg-surface ring-1 ring-border text-foreground rounded-3xl font-medium text-base active:scale-[0.98] transition-transform";
+    `w-full py-4 ${backgroundColor || "bg-surface"} ring-1 ${borderColor || "ring-border"} text-foreground rounded-3xl font-medium text-base active:scale-[0.98] transition-transform`;
   if (as === "link" && to)
     return (
       <Link to={to} className={cls}>

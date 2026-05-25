@@ -32,7 +32,6 @@ function NoMatch() {
         <SecondaryButton onClick={() => nav({ to: "/activity/$id", params: { id: "ciutadella" } })}>
           Choose random
         </SecondaryButton>
-        <SecondaryButton as="link" to="/chat">Open chat</SecondaryButton>
       </div>
     </MobileShell>
   );

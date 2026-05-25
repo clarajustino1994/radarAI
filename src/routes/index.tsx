@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { MobileShell, Brandmark, PrimaryButton, SecondaryButton, WeatherBanner } from "@/components/MobileShell";
+import { MobileShell, Brandmark, PrimaryButton } from "@/components/MobileShell";
 import { HISTORY } from "@/lib/sample-data";
 
 export const Route = createFileRoute("/")({
@@ -38,15 +38,17 @@ function Home() {
           </Link>
         </div>
 
-        <WeatherBanner />
+        {/* <WeatherBanner /> */}
 
         <h1 className="text-[40px] font-semibold tracking-tight leading-[1.02] mt-6 mb-8">
-          Find your<br />horizon.
+          Find your<br />horizon...
         </h1>
 
-        <div className="space-y-2.5">
+        <div className="space-y-3">
+          <Link to="/join" className="block text-right font-semibold text-sm active:opacity-70" style={{ color: "oklch(0.74 0.12 50)" }}>
+            Join plan →
+          </Link>
           <PrimaryButton as="link" to="/create">Start a plan</PrimaryButton>
-          <SecondaryButton as="link" to="/join">Join plan</SecondaryButton>
         </div>
       </section>
 

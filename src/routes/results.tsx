@@ -107,14 +107,14 @@ function Results() {
           ))
         )}
         <div className="grid grid-cols-2 gap-2 pt-2">
-          <SecondaryButton as="link" to="/no-match">No overlap?</SecondaryButton>
-          <SecondaryButton as="link" to="/conflict">Conflict help</SecondaryButton>
+          <SecondaryButton as="link" to="/no-match" backgroundColor="ring-[oklch(0.74_0.12_50)]">Overlap?</SecondaryButton>
+          <SecondaryButton as="link" to="/conflict" backgroundColor="ring-[oklch(0.74_0.12_50)]">Conflict help</SecondaryButton>
         </div>
       </section>
 
       {majoritySubmitted && !decided && (
         <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-[55] px-5">
-          <div className="bg-surface rounded-3xl shadow-lift ring-1 ring-border p-5 animate-slide-up">
+          <div className="bg-surface rounded-3xl shadow-lift ring-1 ring-border p-5 animate-slide-up overflow-hidden">
             <p className="font-mono text-[10px] uppercase tracking-widest text-primary mb-1">Majority reached</p>
             <h3 className="text-lg font-semibold tracking-tight">Confirm {majoritySubmitted.name}?</h3>
             <p className="text-xs text-muted-foreground mb-4">{majoritySubmitted.why}</p>
@@ -127,7 +127,7 @@ function Results() {
 
       {decided && (
         <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-[55] px-5">
-          <div className="bg-foreground text-background rounded-3xl shadow-lift p-5 animate-slide-up">
+          <div className="bg-foreground text-background rounded-3xl shadow-lift p-5 animate-slide-up overflow-hidden">
             <p className="font-mono text-[10px] uppercase tracking-widest text-background/60 mb-1">Voting ended</p>
             <h3 className="text-lg font-semibold tracking-tight mb-1">
               {winner ? `Winner: ${winner.name}` : "No clear winner"}
