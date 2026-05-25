@@ -1,116 +1,149 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
-import fs from 'fs';
-import path from 'path';
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import fs from "node:fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 
-let serverHandler: any;
+type ServerHandler = {
+  fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
+};
 
-async function getServerHandler() {
-  if (!serverHandler) {
-    try {
-      // @ts-ignore - file created during build
-      const entry = await import('../dist/server/server.js');
-      serverHandler = entry.default || entry;
-    } catch (err) {
-      console.error('Failed to load server entry:', err);
-      throw new Error('Server entry not found. Make sure to run npm run build first.');
-    }
+let serverHandlerPromise: Promise<ServerHandler> | undefined;
+
+const CLIENT_DIR = path.join(process.cwd(), "dist", "client");
+
+const MIME_TYPES: Record<string, string> = {
+  ".js": "application/javascript; charset=utf-8",
+  ".mjs": "application/javascript; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".html": "text/html; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".svg": "image/svg+xml",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".gif": "image/gif",
+  ".webp": "image/webp",
+  ".ico": "image/x-icon",
+  ".woff": "font/woff",
+  ".woff2": "font/woff2",
+  ".ttf": "font/ttf",
+  ".map": "application/json; charset=utf-8",
+};
+
+// In production Vercel's CDN serves dist/client (see routes in vercel.json) and
+// this never runs. But `vercel dev` ignores outputDirectory for static files, so
+// we serve the built client assets directly as a fallback. Returns true if handled.
+function tryServeClientAsset(req: VercelRequest, res: VercelResponse): boolean {
+  const urlPath = decodeURIComponent((req.url ?? "/").split("?")[0]);
+  if (!urlPath.startsWith("/assets/")) return false;
+
+  const filePath = path.join(CLIENT_DIR, urlPath);
+  // Prevent path traversal outside the client directory.
+  if (!filePath.startsWith(CLIENT_DIR)) return false;
+  if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) return false;
+
+  res.status(200);
+  res.setHeader("content-type", MIME_TYPES[path.extname(filePath)] ?? "application/octet-stream");
+  res.setHeader("cache-control", "public, max-age=31536000, immutable");
+  res.send(fs.readFileSync(filePath));
+  return true;
+}
+
+// The TanStack Start SSR bundle is emitted to dist/server/server.js and imports
+// its own chunks from dist/server/assets/*. The whole dist/server tree is shipped
+// with this function via the `includeFiles` glob in vercel.json, so it lives next
+// to the deployment root at runtime (process.cwd() === /var/task on Vercel).
+function getServerHandler(): Promise<ServerHandler> {
+  if (!serverHandlerPromise) {
+    const entryPath = path.join(process.cwd(), "dist", "server", "server.js");
+    serverHandlerPromise = import(pathToFileURL(entryPath).href)
+      .then((mod) => (mod.default ?? mod) as ServerHandler)
+      .catch((err) => {
+        serverHandlerPromise = undefined;
+        console.error("Failed to load SSR bundle:", err);
+        throw new Error(
+          "SSR bundle not found at dist/server/server.js. Run `npm run build` before deploying.",
+        );
+      });
   }
-  return serverHandler;
+  return serverHandlerPromise;
 }
 
-function getProtocol(req: VercelRequest): string {
-  const forwarded = req.headers['x-forwarded-proto'];
-  return forwarded ? (Array.isArray(forwarded) ? forwarded[0] : forwarded) : 'https';
+function firstHeaderValue(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
 }
 
-function getHost(req: VercelRequest): string {
-  const host = req.headers['x-forwarded-host'] || req.headers.host;
-  return host ? (Array.isArray(host) ? host[0] : host) : 'localhost';
+function buildRequestUrl(req: VercelRequest): string {
+  const proto = firstHeaderValue(req.headers["x-forwarded-proto"]) ?? "https";
+  const host =
+    firstHeaderValue(req.headers["x-forwarded-host"]) ??
+    firstHeaderValue(req.headers.host) ??
+    "localhost";
+  return `${proto}://${host}${req.url ?? "/"}`;
 }
 
-function getMimeType(filePath: string): string {
-  const ext = path.extname(filePath);
-  const mimes: Record<string, string> = {
-    '.js': 'application/javascript',
-    '.css': 'text/css',
-    '.html': 'text/html',
-    '.json': 'application/json',
-    '.svg': 'image/svg+xml',
-    '.png': 'image/png',
-    '.jpg': 'image/jpeg',
-    '.jpeg': 'image/jpeg',
-    '.gif': 'image/gif',
-    '.webp': 'image/webp',
-  };
-  return mimes[ext] || 'application/octet-stream';
-}
-
-function serveStatic(filePath: string, res: VercelResponse): boolean {
-  try {
-    console.log('Checking file:', filePath);
-    if (fs.existsSync(filePath)) {
-      console.log('File found, serving:', filePath);
-      const content = fs.readFileSync(filePath);
-      res.setHeader('Content-Type', getMimeType(filePath));
-      res.setHeader('Cache-Control', 'public, immutable, max-age=31536000');
-      res.send(content);
-      return true;
+function toRequestHeaders(req: VercelRequest): Headers {
+  const headers = new Headers();
+  for (const [key, value] of Object.entries(req.headers)) {
+    if (value === undefined) continue;
+    if (Array.isArray(value)) {
+      for (const v of value) headers.append(key, v);
     } else {
-      console.log('File not found:', filePath);
+      headers.set(key, value);
     }
-  } catch (err) {
-    console.error('Static file error:', err);
   }
-  return false;
+  return headers;
 }
+
+// Headers that describe the on-the-wire encoding/length of the upstream stream.
+// We buffer the body ourselves, so let Vercel recompute these to avoid mismatches.
+const STRIPPED_RESPONSE_HEADERS = new Set([
+  "content-length",
+  "content-encoding",
+  "transfer-encoding",
+]);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
-    // Serve static assets
-    if (req.url?.startsWith('/assets/')) {
-      const filePath = path.join(__dirname, `../dist/server${req.url}`);
-      if (serveStatic(filePath, res)) return;
-    }
+    // Fallback static serving for `vercel dev` (no-op in production — the CDN
+    // serves dist/client before a request ever reaches this function).
+    if (tryServeClientAsset(req, res)) return;
 
-    // SSR for everything else
-    const handler = await getServerHandler();
-
-    const protocol = getProtocol(req);
-    const host = getHost(req);
-    const url = `${protocol}://${host}${req.url}`;
-
-    const headers: Record<string, string> = {};
-    Object.entries(req.headers).forEach(([key, value]: [string, any]) => {
-      if (Array.isArray(value)) {
-        headers[key] = value[0];
-      } else if (value) {
-        headers[key] = value;
-      }
-    });
+    const handlerEntry = await getServerHandler();
 
     let body: BodyInit | undefined;
-    if (req.method !== 'GET' && req.method !== 'HEAD') {
-      body = req.body ? (typeof req.body === 'string' ? req.body : JSON.stringify(req.body)) : undefined;
+    if (
+      req.method !== "GET" &&
+      req.method !== "HEAD" &&
+      req.body !== undefined &&
+      req.body !== null
+    ) {
+      body = typeof req.body === "string" ? req.body : JSON.stringify(req.body);
     }
 
-    const request = new Request(url, {
+    const request = new Request(buildRequestUrl(req), {
       method: req.method,
-      headers,
+      headers: toRequestHeaders(req),
       body,
     });
 
-    const response = await handler.fetch(request, {}, {});
+    const response = await handlerEntry.fetch(request, {}, {});
 
     res.status(response.status);
-
-    response.headers.forEach((value: string, key: string) => {
-      res.setHeader(key, value);
+    response.headers.forEach((value, key) => {
+      if (!STRIPPED_RESPONSE_HEADERS.has(key.toLowerCase())) {
+        res.setHeader(key, value);
+      }
     });
 
-    const responseBody = await response.text();
-    res.send(responseBody);
+    const buffer = Buffer.from(await response.arrayBuffer());
+    res.send(buffer);
   } catch (error) {
-    console.error('SSR Error:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("SSR error:", error);
+    if (!res.headersSent) {
+      res.status(500).setHeader("content-type", "text/plain; charset=utf-8");
+    }
+    res.end("Internal Server Error");
   }
 }

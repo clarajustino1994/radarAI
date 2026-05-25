@@ -1,9 +1,15 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install",
   "buildCommand": "npm run build",
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api/ssr"
+  "outputDirectory": "dist/client",
+  "functions": {
+    "api/ssr.ts": {
+      "includeFiles": "dist/**"
     }
+  },
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/api/ssr" }
   ]
 }
