@@ -64,7 +64,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     // Serve static assets
     if (req.url?.startsWith('/assets/')) {
-      const filePath = path.join(__dirname, `../dist/client${req.url}`);
+      const filePath = path.join(__dirname, `../dist/server${req.url}`);
       if (serveStatic(filePath, res)) return;
     }
 
