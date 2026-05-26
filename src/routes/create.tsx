@@ -12,7 +12,7 @@ function CreatePlan() {
     <MobileShell back="/" title="Step · Plan">
       <section className="px-6 pt-2">
         <h1 className="text-3xl font-semibold tracking-tight leading-tight mb-2">New plan</h1>
-        <p className="text-sm text-muted-foreground mb-6">Name it (or don't). Confirm location and how far you'll travel.</p>
+        <p className="text-sm text-muted-foreground mb-6">Choose new or keep suggested name, and confirm location.</p>
 
         <label className="block mb-5">
           <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Plan name</span>

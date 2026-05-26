@@ -48,23 +48,7 @@ function Invite() {
   const { sendDmInvite } = usePlan();
 
   return (
-    <MobileShell
-      back="/create"
-      title="Step · Invite"
-      rightSlot={
-        <button
-          onClick={() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1400);
-          }}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface ring-1 ring-border active:scale-95 transition-transform text-xs"
-          title="Copy invite link"
-        >
-          <span className="font-mono text-[11px]">radar.ai/p/9F2-bcn</span>
-          <span className="text-sm">{copied ? "✓" : "↗"}</span>
-        </button>
-      }
-    >
+    <MobileShell back="/create" title="Step · Invite">
       <section className="px-6 pt-2">
         <h1 className="text-3xl font-semibold tracking-tight leading-tight mb-2">
           Invite friends
@@ -72,6 +56,30 @@ function Invite() {
         <p className="text-sm text-muted-foreground mb-8">
           Share a link or pick from contacts.
         </p>
+        <div className="mt-6 mb-8">
+          <div className="rounded-[1rem] bg-foreground text-background px-3 py-2 shadow-lift">
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0">
+                <p className="font-mono text-[9px] uppercase tracking-widest opacity-70 mb-1">
+                  Invite link
+                </p>
+                <p className="font-mono text-[16px] truncate">radar.ai/p/9F2-bcn</p>
+              </div>
+
+              <button
+                onClick={() => {
+                  // optional: copy to clipboard
+                  navigator.clipboard?.writeText("radar.ai/p/9F2-bcn");
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 1400);
+                }}
+                className="shrink-0 rounded-xl px-3 py-2 bg-background/10 hover:bg-background/15 active:scale-95 transition text-[12px] font-semibold"
+              >
+                {copied ? "Copied" : "Copy"}
+              </button>
+            </div>
+          </div>
+        </div>
 
         <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mt-8 mb-3">
           From contacts
@@ -135,7 +143,8 @@ function Invite() {
             nav({ to: "/lobby" });
           }}
         >
-          Send {picked.length-1} invite{picked.length === 1 ? "" : "s"} & continue
+          Send {picked.length - 1} invite{picked.length === 1 ? "" : "s"} &
+          continue
         </PrimaryButton>
         <PrimaryButton as="link" to="/lobby">
           Continue to lobby

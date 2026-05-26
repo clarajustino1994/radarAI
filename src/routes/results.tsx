@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { MobileShell, MiniChip, PrimaryButton, SecondaryButton } from "@/components/MobileShell";
 import { ActivityCard } from "@/components/ActivityCard";
 import { ChatDrawer } from "@/components/ChatDrawer";
@@ -17,12 +17,18 @@ function Results() {
   const [filter, setFilter] = useState<FilterKey>("all");
   const [secs, setSecs] = useState(90);
   const [decided, setDecided] = useState(false);
+  const winnerSheetRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const id = setInterval(() => setSecs((s) => (s > 0 ? s - 1 : 0)), 1000);
     return () => clearInterval(id);
   }, []);
   useEffect(() => { if (secs === 0 && !decided) setDecided(true); }, [secs, decided]);
+  useEffect(() => {
+    if (decided) {
+      winnerSheetRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [decided]);
 
   const ranked = useMemo(() => rankedActivities(), [rankedActivities]);
   const list = useMemo(() => {
@@ -126,7 +132,7 @@ function Results() {
       )}
 
       {decided && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-[55] px-5">
+        <div ref={winnerSheetRef} className="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-[55] px-5">
             <div className="bg-foreground text-background rounded-3xl shadow-lift p-5 animate-slide-up overflow-hidden">
             <p className="font-mono text-[10px] uppercase tracking-widest text-background/60 mb-1">Voting ended</p>
             <h3 className="text-lg font-semibold tracking-tight mb-1">
