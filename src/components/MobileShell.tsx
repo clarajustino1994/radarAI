@@ -48,8 +48,8 @@ export function BottomNav() {
   const loc = useLocation();
   const { plan } = usePlan();
   const tabs: { to: string; label: string; icon: string; badge?: number }[] = [
-    { to: "/", label: "Plan", icon: "◎" },
-    { to: "/chat", label: "Chat", icon: "✦", badge: plan.chatUnread },
+    { to: "/", label: "Home", icon: "◎" },
+    { to: "/chats", label: "Chat", icon: "✦", badge: plan.chatUnread },
     { to: "/history", label: "History", icon: "❍" },
   ];
   const isActive = (to: string) => {
@@ -99,12 +99,12 @@ export function WeatherBanner({ compact }: { compact?: boolean }) {
 export function SegFlex({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const opts = ["Strict", "Flexible", "Open"];
   return (
-    <div className="inline-flex bg-accent/15 ring-1 ring-accent/30 rounded-full p-0.5 text-[11px]">
+    <div className="inline-flex bg-accent/15 ring-1 ring-accent/30 rounded-full p-0.5 text-[14px]">
       {opts.map((o) => (
         <button
           key={o}
           onClick={() => onChange(o)}
-          className={`px-3 py-1 rounded-full font-medium transition-all ${
+          className={`px-5 py-2 rounded-full font-medium transition-all ${
             value === o ? "bg-accent text-foreground shadow-soft" : "text-accent-foreground/70"
           }`}
         >

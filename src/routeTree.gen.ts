@@ -23,8 +23,9 @@ import { Route as FeedbackRouteImport } from './routes/feedback'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as ConflictRouteImport } from './routes/conflict'
 import { Route as CompromiseRouteImport } from './routes/compromise'
-import { Route as ChatRouteImport } from './routes/chat'
+import { Route as ChatsRouteImport } from './routes/chats'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChatIdRouteImport } from './routes/chat.$id'
 import { Route as ActivityIdRouteImport } from './routes/activity.$id'
 
 const WelcomeRoute = WelcomeRouteImport.update({
@@ -97,14 +98,19 @@ const CompromiseRoute = CompromiseRouteImport.update({
   path: '/compromise',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChatRoute = ChatRouteImport.update({
-  id: '/chat',
-  path: '/chat',
+const ChatsRoute = ChatsRouteImport.update({
+  id: '/chats',
+  path: '/chats',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatIdRoute = ChatIdRouteImport.update({
+  id: '/chat/$id',
+  path: '/chat/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActivityIdRoute = ActivityIdRouteImport.update({
@@ -115,7 +121,7 @@ const ActivityIdRoute = ActivityIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
+  '/chats': typeof ChatsRoute
   '/compromise': typeof CompromiseRoute
   '/conflict': typeof ConflictRoute
   '/create': typeof CreateRoute
@@ -131,10 +137,11 @@ export interface FileRoutesByFullPath {
   '/summary': typeof SummaryRoute
   '/welcome': typeof WelcomeRoute
   '/activity/$id': typeof ActivityIdRoute
+  '/chat/$id': typeof ChatIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
+  '/chats': typeof ChatsRoute
   '/compromise': typeof CompromiseRoute
   '/conflict': typeof ConflictRoute
   '/create': typeof CreateRoute
@@ -150,11 +157,12 @@ export interface FileRoutesByTo {
   '/summary': typeof SummaryRoute
   '/welcome': typeof WelcomeRoute
   '/activity/$id': typeof ActivityIdRoute
+  '/chat/$id': typeof ChatIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
+  '/chats': typeof ChatsRoute
   '/compromise': typeof CompromiseRoute
   '/conflict': typeof ConflictRoute
   '/create': typeof CreateRoute
@@ -170,12 +178,13 @@ export interface FileRoutesById {
   '/summary': typeof SummaryRoute
   '/welcome': typeof WelcomeRoute
   '/activity/$id': typeof ActivityIdRoute
+  '/chat/$id': typeof ChatIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/chat'
+    | '/chats'
     | '/compromise'
     | '/conflict'
     | '/create'
@@ -191,10 +200,11 @@ export interface FileRouteTypes {
     | '/summary'
     | '/welcome'
     | '/activity/$id'
+    | '/chat/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/chat'
+    | '/chats'
     | '/compromise'
     | '/conflict'
     | '/create'
@@ -210,10 +220,11 @@ export interface FileRouteTypes {
     | '/summary'
     | '/welcome'
     | '/activity/$id'
+    | '/chat/$id'
   id:
     | '__root__'
     | '/'
-    | '/chat'
+    | '/chats'
     | '/compromise'
     | '/conflict'
     | '/create'
@@ -229,11 +240,12 @@ export interface FileRouteTypes {
     | '/summary'
     | '/welcome'
     | '/activity/$id'
+    | '/chat/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ChatRoute: typeof ChatRoute
+  ChatsRoute: typeof ChatsRoute
   CompromiseRoute: typeof CompromiseRoute
   ConflictRoute: typeof ConflictRoute
   CreateRoute: typeof CreateRoute
@@ -249,6 +261,7 @@ export interface RootRouteChildren {
   SummaryRoute: typeof SummaryRoute
   WelcomeRoute: typeof WelcomeRoute
   ActivityIdRoute: typeof ActivityIdRoute
+  ChatIdRoute: typeof ChatIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -351,11 +364,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompromiseRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/chat': {
-      id: '/chat'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof ChatRouteImport
+    '/chats': {
+      id: '/chats'
+      path: '/chats'
+      fullPath: '/chats'
+      preLoaderRoute: typeof ChatsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -363,6 +376,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat/$id': {
+      id: '/chat/$id'
+      path: '/chat/$id'
+      fullPath: '/chat/$id'
+      preLoaderRoute: typeof ChatIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/activity/$id': {
@@ -377,7 +397,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ChatRoute: ChatRoute,
+  ChatsRoute: ChatsRoute,
   CompromiseRoute: CompromiseRoute,
   ConflictRoute: ConflictRoute,
   CreateRoute: CreateRoute,
@@ -393,6 +413,7 @@ const rootRouteChildren: RootRouteChildren = {
   SummaryRoute: SummaryRoute,
   WelcomeRoute: WelcomeRoute,
   ActivityIdRoute: ActivityIdRoute,
+  ChatIdRoute: ChatIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

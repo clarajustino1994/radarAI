@@ -67,10 +67,6 @@ function ActivityDetail() {
 
       <div className="px-5 space-y-2">
         <PrimaryButton onClick={() => { confirm(a.id); nav({ to: "/go" }); }}>Confirm this plan</PrimaryButton>
-        <div className="grid grid-cols-2 gap-2">
-          <SecondaryButton onClick={() => alert("Mock: opening Maps…")}>Navigate</SecondaryButton>
-          <SecondaryButton onClick={() => alert("Mock: booking link…")}>Reserve</SecondaryButton>
-        </div>
         <Link to="/results" className="block text-center text-xs text-muted-foreground pt-2 underline underline-offset-4">
           Back to list
         </Link>

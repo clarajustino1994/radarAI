@@ -15,7 +15,7 @@ function Results() {
   const { plan, confirm, rankedActivities } = usePlan();
   const nav = useNavigate();
   const [filter, setFilter] = useState<FilterKey>("all");
-  const [secs, setSecs] = useState(30);
+  const [secs, setSecs] = useState(90);
   const [decided, setDecided] = useState(false);
 
   useEffect(() => {

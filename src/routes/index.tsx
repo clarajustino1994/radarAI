@@ -55,7 +55,7 @@ function Home() {
       <section className="px-6 mb-6">
         <div className="flex items-end justify-between mb-3">
           <h2 className="text-sm font-semibold tracking-tight">Active plans</h2>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Tap to rejoin</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Tap one to rejoin</span>
         </div>
         <div className="space-y-2">
           {ACTIVE.map((a) => (

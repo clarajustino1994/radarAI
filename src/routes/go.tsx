@@ -51,7 +51,6 @@ function RouteScreen() {
 
       <div className="px-5 space-y-2">
         <PrimaryButton as="link" to="/summary">I've arrived</PrimaryButton>
-        <SecondaryButton onClick={() => alert("Mock: opening Maps…")}>Open in Maps</SecondaryButton>
       </div>
     </MobileShell>
   );
